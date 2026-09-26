@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/portfolio-preview.png" alt="Ashmita Choudhury Portfolio" width="100%">
+  <img src="assets/ashmita_choudhury_github_banner.pngg" alt="Ashmita Choudhury Portfolio" width="100%">
 </p>
 
 <br>
