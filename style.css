@@ -113,3 +113,26 @@ body{overflow-x:clip}
   .lens-card:nth-child(2){transform:translateY(0) rotate(1deg)}
   .lens-footer{font-size:7px;letter-spacing:1px}
 }
+
+/* Compact lens gallery */
+.photography{padding-top:72px!important;padding-bottom:72px!important}
+.photography-heading{margin-bottom:24px}
+.photography-heading h2{font-size:clamp(42px,5vw,76px)}
+.photography-heading p{margin-top:10px}
+.lens-track{gap:22px;padding-top:4px;padding-bottom:22px}
+.lens-card{flex:0 0 34%;max-width:480px}
+.lens-card img{height:340px}
+.lens-card:nth-child(1){transform:translateY(18px) rotate(-1.2deg)}
+.lens-card:nth-child(2){transform:translateY(-2px) rotate(1deg)}
+.lens-card:hover{transform:translateY(-5px) rotate(0)}
+.lens-card figcaption{padding-top:10px}
+.lens-footer{padding-top:12px}
+@media(max-width:900px){
+  .lens-card{flex-basis:48%}
+  .lens-card img{height:320px}
+}
+@media(max-width:700px){
+  .photography{padding-top:55px!important;padding-bottom:55px!important}
+  .lens-card{flex-basis:72%}
+  .lens-card img{height:300px}
+}
