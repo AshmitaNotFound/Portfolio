@@ -9,7 +9,7 @@ body{overflow-x:clip}
 /* Layered portrait: the full image sits inside the frame while a shaped,
    enlarged copy projects beyond it to create the depth illusion. */
 .portrait{--portrait-x:0deg;--portrait-y:0deg;z-index:4;background:transparent;padding:0;box-shadow:none;perspective:1100px;transform:rotate(-3deg);overflow:visible}
-.portrait:hover{transform:rotate(-1deg) translateY(-7px)}
+.portrait:hover{transform:rotate(-1deg) translateY(-7px)}    
 .portrait-stage{position:relative;height:440px;transform-style:preserve-3d;transform:rotateX(var(--portrait-x)) rotateY(var(--portrait-y));transition:transform .18s ease-out}
 .portrait-shadow{position:absolute;inset:8% -8% -7% 7%;background:#4d1727;filter:blur(24px);opacity:.22;transform:translateZ(-55px) translate(18px,22px);border-radius:48% 45% 8% 14%;pointer-events:none}
 .portrait-backdrop{position:absolute;inset:4% 3% 1%;overflow:hidden;background:#d8d5cb;border:9px solid #e7e3d9;box-shadow:12px 18px 34px #2923192b;transform:translateZ(-8px)}
