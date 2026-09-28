@@ -44,6 +44,7 @@ const projects = [
     summary: 'A responsive music experience made around discovery, shared listening, and motion that feels alive.',
     role: 'UI / UX · Frontend',
     tools: 'HTML / CSS / JavaScript',
+    live: 'https://nova-music-k6av.onrender.com/',
     repo: 'https://github.com/AshmitaNotFound/nova-music',
     visual: '<span class="preview-top">NOVA MUSIC <b>2026</b></span><span class="nova-wordmark">NOVA<small>MUSIC IN MOTION</small></span><span class="nova-orbit" aria-hidden="true"><i>♫</i><i>♪</i><i>♬</i></span><span class="preview-bottom">VIEW THE PROJECT <b>↗</b></span>'
   },
@@ -54,6 +55,7 @@ const projects = [
     summary: 'An interactive Ninja 500 product concept shaped around color, speed, and motion-led exploration.',
     role: 'Creative direction · UI design',
     tools: 'Figma / HTML / CSS / JavaScript',
+    live: 'https://ashmitanotfound.github.io/BIKE-SHOWCASE/',
     repo: 'https://github.com/AshmitaNotFound/BIKE-SHOWCASE',
     visual: '<span class="preview-top">NINJA 500 / INTERACTIVE CONCEPT <b>2026</b></span><span class="bike-title">CHOOSE.<br><i>MOVE.</i><br>EXPLORE.</span><span class="bike-note">A PRODUCT EXPERIENCE IN MOTION</span><span class="preview-bottom">VIEW THE PROJECT <b>↗</b></span>'
   }
@@ -72,7 +74,7 @@ track.innerHTML = projects.map((project) => `
         <h3>${project.title}</h3>
         <p>${project.summary}</p>
       </div>
-      <a class="circle-link" href="${project.repo}" target="_blank" rel="noreferrer" aria-label="Open ${project.title} repository">↗</a>
+      <a class="circle-link" href="${project.live}" target="_blank" rel="noreferrer" aria-label="Open ${project.title} live website">↗</a>
     </div>
     <div class="project-tags">
       <span>${project.role}</span>
