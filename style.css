@@ -136,3 +136,113 @@ body{overflow-x:clip}
   .lens-card{flex-basis:72%}
   .lens-card img{height:300px}
 }
+
+/* Cinematic horizontal film-strip */
+.photography{
+  background:#171614!important;
+  color:#f3f0e8;
+  padding-top:78px!important;
+  padding-bottom:70px!important;
+  position:relative;
+  overflow:hidden;
+}
+.photography:before,
+.photography:after{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  height:12px;
+  background:repeating-linear-gradient(90deg,transparent 0 18px,#d8d2c5 18px 30px,transparent 30px 48px);
+  opacity:.32;
+}
+.photography:before{top:0}
+.photography:after{bottom:0}
+.photography>.section-label{padding-right:7.53%;color:#bcb7aa}
+.photography-heading{
+  padding-right:7.53%;
+  margin-bottom:28px!important;
+}
+.photography-heading h2{
+  color:#f3f0e8;
+  font-size:clamp(48px,6vw,88px)!important;
+  letter-spacing:-.04em;
+}
+.photography-heading p{color:#aaa69b}
+.lens-controls{color:#bcb7aa}
+.lens-controls button{
+  border-color:#69655d!important;
+  color:#f3f0e8;
+}
+.lens-controls button:hover{background:#f3f0e8!important;color:#171614!important}
+.lens-track{
+  gap:34px!important;
+  padding:18px 7.53% 30px 7.53%!important;
+  margin:0;
+  scroll-snap-type:x mandatory;
+  background:#0f0e0d;
+  border-top:1px solid #38352f;
+  border-bottom:1px solid #38352f;
+}
+.lens-card{
+  flex:0 0 min(68vw,780px)!important;
+  max-width:none!important;
+  padding:16px 16px 13px!important;
+  background:#25231f;
+  border:1px solid #454139;
+  box-shadow:0 12px 40px rgba(0,0,0,.28);
+  transform:none!important;
+  scroll-snap-align:center;
+  transition:transform .55s ease,opacity .55s ease,box-shadow .55s ease;
+}
+.lens-card:before{
+  content:"";
+  display:block;
+  height:5px;
+  margin:-4px 0 11px;
+  background:repeating-linear-gradient(90deg,#b9b2a4 0 13px,transparent 13px 25px);
+  opacity:.42;
+}
+.lens-card:after{
+  content:"";
+  display:block;
+  height:5px;
+  margin:11px 0 -4px;
+  background:repeating-linear-gradient(90deg,#b9b2a4 0 13px,transparent 13px 25px);
+  opacity:.42;
+}
+.lens-card:hover{
+  transform:translateY(-6px)!important;
+  box-shadow:0 22px 55px rgba(0,0,0,.4);
+}
+.lens-card img{
+  width:100%!important;
+  height:420px!important;
+  object-fit:cover;
+  filter:saturate(.82) contrast(1.04);
+  transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s ease;
+}
+.lens-card:hover img{
+  transform:scale(1.025);
+  filter:saturate(1) contrast(1.06);
+}
+.lens-card figcaption{
+  color:#ded8cc;
+  padding:13px 3px 0!important;
+  font-size:9px;
+  letter-spacing:1.6px;
+}
+.lens-card figcaption span:last-child{color:#aaa69b!important}
+.lens-footer{
+  padding:16px 7.53% 0!important;
+  border-top:0!important;
+  color:#88847b!important;
+}
+@media(max-width:700px){
+  .photography{padding-top:60px!important;padding-bottom:58px!important}
+  .photography-heading{padding-right:6.4%;margin-bottom:20px!important}
+  .photography>.section-label{padding-right:6.4%}
+  .lens-track{padding:14px 6.4% 24px!important;gap:18px!important}
+  .lens-card{flex-basis:88%!important;padding:11px 11px 10px!important}
+  .lens-card img{height:300px!important}
+  .lens-footer{padding-left:6.4%!important;padding-right:6.4%!important;font-size:7px}
+}
