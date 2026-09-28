@@ -38,24 +38,76 @@ document.querySelector('#contact .section-label span:first-child').textContent =
 
 document.querySelector('#work').insertAdjacentHTML('afterend', `
   <section id="photography" class="photography section">
-    <div class="section-label"><span>03 / THROUGH MY LENS</span><span>A SMALL COLLECTION, GROWING SLOWLY</span></div>
-    <div class="photography-layout">
-      <div class="photography-copy">
-        <h2>Small moments.<br><em>Held in light.</em></h2>
-        <p>Photography is where I slow down, notice the details, and keep a little piece of a moment.</p>
-        <span class="draft-label">NEW FRAMES COMING SOON</span>
+    <div class="section-label"><span>03 / SEE THROUGH MY LENS</span><span>MOMENTS WORTH KEEPING</span></div>
+    <div class="photography-heading">
+      <div>
+        <h2>Through my <em>lens.</em></h2>
+        <p>Small moments, unexpected details, and things I wanted to remember.</p>
       </div>
-      <figure class="photo-feature">
-        <img src="assets/ashmita.jpeg" alt="Ashmita holding a camera" width="1080" height="1440">
-        <figcaption><span>01 / A QUIET OBSERVATION</span><span>✳</span></figcaption>
-      </figure>
-      <div class="photography-note"><span>THE THINGS I NOTICE</span><p>Light on a wall. A familiar place. The feeling of an ordinary day.</p><b>MORE SOON ↗</b></div>
+      <div class="lens-controls">
+        <button id="lensPrev" aria-label="Previous photograph">←</button>
+        <span id="lensCount">01 — 02</span>
+        <button id="lensNext" aria-label="Next photograph">→</button>
+      </div>
     </div>
+    <div class="lens-track" id="lensTrack" tabindex="0" aria-label="Photography collection, scroll horizontally">
+      <figure class="lens-card">
+        <img src="assets/lens1.jpeg" alt="A bird perched on an old wall">
+        <figcaption><span>01 / A CURIOUS VISITOR</span><span>✳</span></figcaption>
+      </figure>
+      <figure class="lens-card">
+        <img src="assets/lens2.jpeg" alt="A flower glowing in the light">
+        <figcaption><span>02 / CAUGHT IN THE LIGHT</span><span>✳</span></figcaption>
+      </figure>
+    </div>
+    <div class="lens-footer"><span>DRAG · SWIPE · FOLLOW THE ARROWS</span><span>PHOTOGRAPHS BY ASHMITA</span></div>
   </section>
 `);
-const photographyLayout = document.querySelector('.photography-layout');
+const photographyLayout = document.querySelector('.lens-track');
 photographyLayout.classList.add('reveal');
 observer.observe(photographyLayout);
+
+const lensTrack = document.querySelector('#lensTrack');
+const lensCards = [...lensTrack.querySelectorAll('.lens-card')];
+const lensCount = document.querySelector('#lensCount');
+let lensIndex = 0;
+
+function updateLens() {
+  const card = lensCards[lensIndex];
+  const left = card.offsetLeft - lensTrack.offsetLeft;
+  lensTrack.scrollTo({ left, behavior: motionPaused ? 'auto' : 'smooth' });
+  lensCount.textContent = `${String(lensIndex + 1).padStart(2, '0')} — ${String(lensCards.length).padStart(2, '0')}`;
+}
+
+function moveLens(direction) {
+  lensIndex = (lensIndex + direction + lensCards.length) % lensCards.length;
+  updateLens();
+}
+
+document.querySelector('#lensPrev').addEventListener('click', () => moveLens(-1));
+document.querySelector('#lensNext').addEventListener('click', () => moveLens(1));
+
+lensTrack.addEventListener('scroll', () => {
+  const current = lensCards.reduce((best, card, index) => {
+    const distance = Math.abs(card.offsetLeft - lensTrack.scrollLeft);
+    return distance < best.distance ? { index, distance } : best;
+  }, { index: 0, distance: Infinity });
+  lensIndex = current.index;
+  lensCount.textContent = `${String(lensIndex + 1).padStart(2, '0')} — ${String(lensCards.length).padStart(2, '0')}`;
+}, { passive: true });
+
+let lensTimer = setInterval(() => {
+  if (!motionPaused && document.visibilityState === 'visible') moveLens(1);
+}, 4200);
+
+lensTrack.addEventListener('pointerenter', () => clearInterval(lensTimer));
+lensTrack.addEventListener('pointerleave', () => {
+  clearInterval(lensTimer);
+  lensTimer = setInterval(() => {
+    if (!motionPaused && document.visibilityState === 'visible') moveLens(1);
+  }, 4200);
+});
+
 
 const projects = [
   {
