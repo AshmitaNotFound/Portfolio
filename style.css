@@ -78,3 +78,38 @@ body{overflow-x:clip}
 /* Photography is intentionally brief: one frame and a small note for the collection to come. */
 .photography{background:#d9dbd0}.photography-layout{display:grid;grid-template-columns:.95fr .78fr .65fr;align-items:center;gap:6%;max-width:1100px}.photography-copy h2{margin:0}.photography-copy p{max-width:360px;margin:20px 0;color:var(--muted);line-height:1.6}.photo-feature{position:relative;margin:0;transform:rotate(3deg);box-shadow:14px 18px 30px #33372d2b;background:#c9cbc0;padding:9px}.photo-feature img{display:block;width:100%;height:300px;object-fit:cover;object-position:center 50%;filter:saturate(.75) contrast(1.05)}.photo-feature figcaption{display:flex;justify-content:space-between;gap:12px;padding:11px 3px 3px;font-size:9px;letter-spacing:1px;color:var(--ink)}.photography-note{align-self:end;padding-bottom:12px;border-bottom:1px solid #aeb1a3}.photography-note>span,.photography-note b{font-size:10px;letter-spacing:1.2px}.photography-note p{font:25px/1.08 var(--serif);margin:15px 0 24px}.photography-note b{color:var(--wine);font-weight:500}
 @media(max-width:700px){.section{padding-block:52px}.photography-layout{grid-template-columns:1fr;gap:28px}.photography-copy p{font-size:15px}.photo-feature{width:min(74%,280px);justify-self:end;margin-right:8px}.photo-feature img{height:270px}.photography-note{max-width:300px}.photography-note p{font-size:23px}.section-label{margin-bottom:28px}}
+
+/* Through My Lens — animated photography strip */
+.photography{background:#dedfd5;padding-right:0;overflow:hidden}
+.photography>.section-label,.photography-heading,.lens-footer{padding-right:7.53%}
+.photography-heading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:38px}
+.photography-heading p{max-width:430px;color:var(--muted);margin:18px 0 0}
+.lens-controls{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:1.2px}
+.lens-controls button{width:48px;height:48px;border:1px solid #b9bcb0;border-radius:50%;background:transparent;font-size:22px;transition:background .25s,color .25s,transform .25s}
+.lens-controls button:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
+.lens-track{display:flex;gap:28px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 7.53% 35px 0;scrollbar-width:none;cursor:grab}
+.lens-track:active{cursor:grabbing}
+.lens-track::-webkit-scrollbar{display:none}
+.lens-card{flex:0 0 48%;margin:0;scroll-snap-align:start;position:relative;transition:transform .5s ease}
+.lens-card:nth-child(1){transform:translateY(28px) rotate(-1.5deg)}
+.lens-card:nth-child(2){transform:translateY(-4px) rotate(1.2deg)}
+.lens-card:hover{transform:translateY(-7px) rotate(0)}
+.lens-card img{display:block;width:100%;height:500px;object-fit:cover;transition:transform .7s ease,filter .7s ease;filter:saturate(.88) contrast(1.02)}
+.lens-card:hover img{transform:scale(1.025);filter:saturate(1) contrast(1.04)}
+.lens-card figcaption{display:flex;justify-content:space-between;gap:15px;padding:14px 3px 0;font-size:9px;letter-spacing:1.4px}
+.lens-card figcaption span:last-child{color:var(--wine)}
+.lens-footer{display:flex;justify-content:space-between;border-top:1px solid #bfc1b5;padding-top:18px;font-size:9px;letter-spacing:1.3px;color:var(--muted)}
+@media(max-width:700px){
+  .photography>.section-label,.photography-heading,.lens-footer{padding-right:6.4%}
+  .photography-heading{align-items:end;margin-bottom:25px}
+  .photography-heading h2{font-size:43px}
+  .photography-heading p{font-size:14px;margin-top:12px}
+  .lens-controls{gap:7px}
+  .lens-controls button{width:38px;height:38px;font-size:18px}
+  .lens-track{gap:18px;padding-bottom:25px}
+  .lens-card{flex-basis:86%}
+  .lens-card img{height:440px}
+  .lens-card:nth-child(1){transform:translateY(16px) rotate(-1deg)}
+  .lens-card:nth-child(2){transform:translateY(0) rotate(1deg)}
+  .lens-footer{font-size:7px;letter-spacing:1px}
+}
