@@ -125,6 +125,7 @@ function updateLens() {
   const card = lensCards[lensIndex];
   lensTrack.scrollTo({ left: card.offsetLeft - lensTrack.offsetLeft, behavior: motionPaused ? 'auto' : 'smooth' });
   if (lensCount) lensCount.textContent = String(lensIndex + 1).padStart(2, '0') + ' — ' + String(lensCards.length).padStart(2, '0');
+  lensCards.forEach((item, i) => item.classList.toggle('is-active', i === lensIndex));
 }
 
 function moveLens(direction) {
@@ -142,6 +143,7 @@ if (lensTrack && lensCards.length) {
       return distance < best.distance ? { index, distance } : best;
     }, { index: 0, distance: Infinity });
     lensIndex = nearest.index;
+    lensCards.forEach((item, i) => item.classList.toggle('is-active', i === lensIndex));
     if (lensCount) lensCount.textContent = String(lensIndex + 1).padStart(2, '0') + ' — ' + String(lensCards.length).padStart(2, '0');
   }, { passive: true });
   let lensTimer = setInterval(() => {
@@ -215,3 +217,54 @@ addEventListener('scroll', () => {
 }, { passive: true });
 addEventListener('resize', () => { updateSectionRail(); updateProjectCount(); });
 updateSectionRail();
+
+
+/* Reveal more of the page as it enters the viewport. */
+document.querySelectorAll('.about-layout,.identity,.photography-heading,.lens-track,.lens-footer,.skills-layout,.contact h2,.contact-bottom').forEach((element) => {
+  element.classList.add('reveal');
+  observer.observe(element);
+});
+
+/* Keep the cinematic lens strip visually focused on the current frame. */
+function setActiveLens(index) {
+  lensCards.forEach((card, i) => card.classList.toggle('is-active', i === index));
+}
+setActiveLens(lensIndex);
+
+/* A lightweight cursor interaction for pointer devices. */
+if (matchMedia('(pointer:fine)').matches) {
+  const cursorDot = document.createElement('span');
+  const cursorRing = document.createElement('span');
+  cursorDot.className = 'cursor-dot';
+  cursorRing.className = 'cursor-ring';
+  document.body.append(cursorDot, cursorRing);
+  let cursorX = -100, cursorY = -100;
+  let ringX = -100, ringY = -100;
+
+  addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'touch') return;
+    cursorX = event.clientX;
+    cursorY = event.clientY;
+    cursorDot.style.transform = `translate(${cursorX}px,${cursorY}px) translate(-50%,-50%)`;
+    if (!document.body.classList.contains('cursor-ready')) document.body.classList.add('cursor-ready');
+  }, {passive:true});
+
+  function followCursor() {
+    ringX += (cursorX - ringX) * .18;
+    ringY += (cursorY - ringY) * .18;
+    cursorRing.style.transform = `translate(${ringX}px,${ringY}px) translate(-50%,-50%)`;
+    requestAnimationFrame(followCursor);
+  }
+  followCursor();
+
+  document.querySelectorAll('a,button,.lens-card,.project-visual').forEach((element) => {
+    element.addEventListener('pointerenter', () => cursorRing.classList.add('is-hover'));
+    element.addEventListener('pointerleave', () => cursorRing.classList.remove('is-hover'));
+  });
+}
+
+/* Keep the lens focus class in sync with manual scrolling. */
+if (lensTrack && lensCards.length) {
+  const originalLensScroll = lensTrack.onscroll;
+  lensTrack.addEventListener('scroll', () => setActiveLens(lensIndex), {passive:true});
+}
