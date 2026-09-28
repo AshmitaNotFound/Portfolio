@@ -231,38 +231,6 @@ function setActiveLens(index) {
 }
 setActiveLens(lensIndex);
 
-/* A lightweight cursor interaction for pointer devices. */
-if (matchMedia('(pointer:fine)').matches) {
-  const cursorDot = document.createElement('span');
-  const cursorRing = document.createElement('span');
-  cursorDot.className = 'cursor-dot';
-  cursorRing.className = 'cursor-ring';
-  document.body.append(cursorDot, cursorRing);
-  let cursorX = -100, cursorY = -100;
-  let ringX = -100, ringY = -100;
-
-  addEventListener('pointermove', (event) => {
-    if (event.pointerType === 'touch') return;
-    cursorX = event.clientX;
-    cursorY = event.clientY;
-    cursorDot.style.transform = `translate(${cursorX}px,${cursorY}px) translate(-50%,-50%)`;
-    if (!document.body.classList.contains('cursor-ready')) document.body.classList.add('cursor-ready');
-  }, {passive:true});
-
-  function followCursor() {
-    ringX += (cursorX - ringX) * .18;
-    ringY += (cursorY - ringY) * .18;
-    cursorRing.style.transform = `translate(${ringX}px,${ringY}px) translate(-50%,-50%)`;
-    requestAnimationFrame(followCursor);
-  }
-  followCursor();
-
-  document.querySelectorAll('a,button,.lens-card,.project-visual').forEach((element) => {
-    element.addEventListener('pointerenter', () => cursorRing.classList.add('is-hover'));
-    element.addEventListener('pointerleave', () => cursorRing.classList.remove('is-hover'));
-  });
-}
-
 /* Keep the lens focus class in sync with manual scrolling. */
 if (lensTrack && lensCards.length) {
   const originalLensScroll = lensTrack.onscroll;
