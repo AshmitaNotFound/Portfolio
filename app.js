@@ -113,6 +113,46 @@ track.addEventListener('keydown', (event) => {
 track.addEventListener('scroll', updateProjectCount, { passive: true });
 updateProjectCount();
 
+const lensTrack = document.querySelector('#lensTrack');
+const lensCards = lensTrack ? [...lensTrack.querySelectorAll('.lens-card')] : [];
+const lensCount = document.querySelector('#lensCount');
+let lensIndex = 0;
+
+function updateLens() {
+  if (!lensTrack || !lensCards.length) return;
+  const card = lensCards[lensIndex];
+  lensTrack.scrollTo({ left: card.offsetLeft - lensTrack.offsetLeft, behavior: motionPaused ? 'auto' : 'smooth' });
+  if (lensCount) lensCount.textContent = String(lensIndex + 1).padStart(2, '0') + ' — ' + String(lensCards.length).padStart(2, '0');
+}
+
+function moveLens(direction) {
+  if (!lensCards.length) return;
+  lensIndex = (lensIndex + direction + lensCards.length) % lensCards.length;
+  updateLens();
+}
+
+if (lensTrack && lensCards.length) {
+  document.querySelector('#lensPrev').addEventListener('click', () => moveLens(-1));
+  document.querySelector('#lensNext').addEventListener('click', () => moveLens(1));
+  lensTrack.addEventListener('scroll', () => {
+    const nearest = lensCards.reduce((best, card, index) => {
+      const distance = Math.abs(card.offsetLeft - lensTrack.scrollLeft);
+      return distance < best.distance ? { index, distance } : best;
+    }, { index: 0, distance: Infinity });
+    lensIndex = nearest.index;
+    if (lensCount) lensCount.textContent = String(lensIndex + 1).padStart(2, '0') + ' — ' + String(lensCards.length).padStart(2, '0');
+  }, { passive: true });
+  let lensTimer = setInterval(() => {
+    if (!motionPaused && document.visibilityState === 'visible') moveLens(1);
+  }, 4200);
+  lensTrack.addEventListener('pointerenter', () => clearInterval(lensTimer));
+  lensTrack.addEventListener('pointerleave', () => {
+    clearInterval(lensTimer);
+    lensTimer = setInterval(() => {
+      if (!motionPaused && document.visibilityState === 'visible') moveLens(1);
+    }, 4200);
+  });
+}
 const portrait = document.querySelector('.portrait');
 portrait.addEventListener('pointermove', (event) => {
   if (motionPaused || event.pointerType === 'touch') return;
