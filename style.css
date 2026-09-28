@@ -3,7 +3,7 @@
 body{overflow-x:clip}
 
 /* Content removed from the final portfolio flow. */
-#about,#skills,header nav a[href="#about"]{display:none}  
+#about,#skills,header nav a[href="#about"]{display:none}         
 
 
 /* Layered portrait: the full image sits inside the frame while a shaped,
